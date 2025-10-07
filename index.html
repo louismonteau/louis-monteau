@@ -211,16 +211,126 @@
     </div>
   </section>
 
-  <!-- Formulaire de contact -->
-  <section class="contact">
-    <h2>Contactez-moi</h2>
-    <form action="remerciement-contact.html" method="GET" onsubmit="envoyerFormulaire()">
+<!-- Formulaire de contact modernisé -->
+<section class="contact">
+  <h2>Contactez-moi</h2>
+  <p style="max-width:600px;margin:0 auto 40px;color:#555;">
+    Discutons de vos besoins en Web Analytics, Tracking ou Dashboarding.  
+    Laissez vos coordonnées pour être recontacté sous 24h.
+  </p>
+
+  <form action="remerciement-contact.html" method="GET" onsubmit="envoyerFormulaire()">
+    <div class="form-group">
       <input type="text" name="prenom" placeholder="Prénom" required>
+      <label>Prénom</label>
+    </div>
+
+    <div class="form-group">
       <input type="text" name="nom" placeholder="Nom" required>
+      <label>Nom</label>
+    </div>
+
+    <div class="form-group">
       <input type="email" name="email" placeholder="Email" required>
-      <button type="submit">Être recontacté</button>
-    </form>
-  </section>
+      <label>Email</label>
+    </div>
+
+    <button type="submit">Être recontacté</button>
+  </form>
+</section>
+
+<style>
+  .contact {
+    text-align: center;
+    padding: 100px 20px;
+    background-color: #FFFFFF;
+  }
+
+  .contact h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #1C1C1E;
+  }
+
+  .contact p {
+    color: #555;
+    font-size: 1rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  /* --- Champs du formulaire avec effet focus --- */
+  .form-group {
+    position: relative;
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+    padding: 14px 12px;
+    border: 1px solid #B0B0B0;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: rgba(250, 250, 250, 0.9);
+    transition: all 0.3s ease;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #007AFF;
+    box-shadow: 0 0 8px rgba(0,122,255,0.3);
+    background-color: #fff;
+  }
+
+  /* --- Labels flottants --- */
+  label {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    color: #999;
+    font-size: 0.95rem;
+    pointer-events: none;
+    transition: 0.2s ease;
+  }
+
+  input:focus + label,
+  input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+    font-size: 0.8rem;
+    color: #007AFF;
+    background-color: #fff;
+    padding: 0 4px;
+  }
+
+  /* --- Bouton CTA --- */
+  button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 25px;
+    background-color: #007AFF;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,122,255,0.25);
+  }
+
+  button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,122,255,0.35);
+  }
+</style>
+
 
   <footer>
     © 2025 Louis Monteau — Expert Web Analytics
