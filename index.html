@@ -5,21 +5,169 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Louis Monteau - Expert Web Analytics</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
-    body {font-family: 'Inter', sans-serif; margin: 0; background-color: #FAFAFA; color: #1C1C1E;}
-    header, footer {padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #B0B0B0;}
-    footer {border-top: 1px solid #B0B0B0; border-bottom: none; justify-content: center; font-size: 14px;}
-    nav a {margin: 0 15px; text-decoration: none; color: #1C1C1E;}
-    nav a:hover {color: #007AFF;}
-    h1, h2 {color: #1C1C1E;}
-    .hero {text-align: center; padding: 80px 20px;}
-    .hero h1 {font-size: 2.5rem; margin-bottom: 10px;}
-    .expertise {max-width: 1000px; margin: 50px auto; padding: 0 20px;}
-    .expertise-item {margin-bottom: 40px;}
-    form {display: flex; flex-direction: column; width: 300px; margin: 0 auto;}
-    input, button {margin-bottom: 15px; padding: 10px; border: 1px solid #B0B0B0; border-radius: 8px;}
-    button {background-color: #007AFF; color: #fff; border: none; cursor: pointer;}
-    button:hover {opacity: 0.9;}
+    /* --- Style général --- */
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: #FAFAFA;
+      color: #1C1C1E;
+    }
+
+    header, footer {
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #B0B0B0;
+    }
+
+    footer {
+      border-top: 1px solid #B0B0B0;
+      border-bottom: none;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #1C1C1E;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #007AFF;
+    }
+
+    h1, h2 {
+      color: #1C1C1E;
+    }
+
+    /* --- Bannière dynamique --- */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 100px 20px;
+      color: #fff;
+      background: linear-gradient(270deg, #007AFF, #1C1C1E, #007AFF);
+      background-size: 600% 600%;
+      animation: gradientMove 10s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+
+    .hero button {
+      background-color: #fff;
+      color: #007AFF;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .hero button:hover {
+      background-color: #007AFF;
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,122,255,0.3);
+    }
+
+    /* --- Section expertises --- */
+    .expertise {
+      max-width: 1100px;
+      margin: 80px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .expertise h2 {
+      margin-bottom: 50px;
+      font-size: 2rem;
+    }
+
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+    }
+
+    .expertise-item {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid #B0B0B0;
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+
+    .expertise-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border-color: #007AFF;
+    }
+
+    .expertise-item h3 {
+      color: #007AFF;
+      margin-bottom: 10px;
+    }
+
+    .expertise-item p {
+      font-size: 0.95rem;
+      color: #1C1C1E;
+    }
+
+    /* --- Formulaire contact --- */
+    .contact {
+      text-align: center;
+      padding: 80px 20px;
+      background-color: #FAFAFA;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    input, button {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #B0B0B0;
+      border-radius: 8px;
+    }
+
+    button {
+      background-color: #007AFF;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
   </style>
 </head>
 <body>
@@ -33,30 +181,39 @@
     </nav>
   </header>
 
+  <!-- Bannière dynamique -->
   <section class="hero">
-    <h1>Développez votre maîtrise du digital</h1>
-    <p>Expert en Web Analytics, Tracking & Dashboarding — je vous forme à mesurer, comprendre et optimiser vos performances digitales.</p>
+    <h1>Propulsez vos performances digitales</h1>
+    <p>Je forme les entreprises à transformer la donnée en performance. Découvrez mes expertises en Web Analytics, Tracking et Dashboarding.</p>
     <a href="catalogue.html"><button>Découvrir mes formations</button></a>
   </section>
 
+  <!-- Expertises dynamiques -->
   <section class="expertise">
     <h2>Nos expertises clés</h2>
-    <div class="expertise-item">
-      <h3>Web Analytics</h3>
-      <p>Transformez vos données en décisions : apprenez à structurer vos indicateurs et à interpréter vos performances avec précision.</p>
-    </div>
-    <div class="expertise-item">
-      <h3>Tracking</h3>
-      <p>Maîtrisez Google Tag Manager pour suivre les comportements utilisateurs et piloter vos actions marketing en temps réel.</p>
-    </div>
-    <div class="expertise-item">
-      <h3>Dashboarding</h3>
-      <p>Créez des tableaux de bord clairs et dynamiques avec Power BI ou Data Studio pour piloter vos KPIs efficacement.</p>
+    <div class="expertise-grid">
+      <div class="expertise-item">
+        <h3>Web Analytics</h3>
+        <p>Apprenez à identifier les leviers de croissance grâce à une analyse fine de vos indicateurs de performance (KPI, ROI, taux de conversion).</p>
+      </div>
+      <div class="expertise-item">
+        <h3>Tracking & GTM</h3>
+        <p>Devenez autonome dans la collecte de vos données : mise en place de plans de marquage, balises et déclencheurs via Google Tag Manager.</p>
+      </div>
+      <div class="expertise-item">
+        <h3>Dashboarding</h3>
+        <p>Concevez des tableaux de bord impactants et clairs sous Power BI ou Looker Studio pour suivre vos KPIs en temps réel.</p>
+      </div>
+      <div class="expertise-item">
+        <h3>Data Strategy</h3>
+        <p>Structurez une gouvernance de la donnée solide pour fiabiliser vos analyses et mieux piloter vos campagnes marketing.</p>
+      </div>
     </div>
   </section>
 
+  <!-- Formulaire de contact -->
   <section class="contact">
-    <h2 style="text-align:center;">Contactez-moi</h2>
+    <h2>Contactez-moi</h2>
     <form action="remerciement-contact.html" method="GET" onsubmit="envoyerFormulaire()">
       <input type="text" name="prenom" placeholder="Prénom" required>
       <input type="text" name="nom" placeholder="Nom" required>
@@ -71,12 +228,14 @@
 
   <script>
     window.dataLayer = window.dataLayer || [];
+
     // Envoi de l'événement de vue page pour GA4
     dataLayer.push({
       event: 'page_view',
       page_name: 'Accueil'
     });
 
+    // Tracking de soumission du formulaire
     function envoyerFormulaire() {
       dataLayer.push({
         event: 'form_submit',
