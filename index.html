@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Louis Monteau - Expert Web Analytics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {font-family: 'Inter', sans-serif; margin: 0; background-color: #FAFAFA; color: #1C1C1E;}
+    header, footer {padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #B0B0B0;}
+    footer {border-top: 1px solid #B0B0B0; border-bottom: none; justify-content: center; font-size: 14px;}
+    nav a {margin: 0 15px; text-decoration: none; color: #1C1C1E;}
+    nav a:hover {color: #007AFF;}
+    h1, h2 {color: #1C1C1E;}
+    .hero {text-align: center; padding: 80px 20px;}
+    .hero h1 {font-size: 2.5rem; margin-bottom: 10px;}
+    .expertise {max-width: 1000px; margin: 50px auto; padding: 0 20px;}
+    .expertise-item {margin-bottom: 40px;}
+    form {display: flex; flex-direction: column; width: 300px; margin: 0 auto;}
+    input, button {margin-bottom: 15px; padding: 10px; border: 1px solid #B0B0B0; border-radius: 8px;}
+    button {background-color: #007AFF; color: #fff; border: none; cursor: pointer;}
+    button:hover {opacity: 0.9;}
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>Louis Monteau</strong></div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Expertises</a>
+      <a href="contact.html">Contact</a>
+      <a href="panier.html">Panier</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Développez votre maîtrise du digital</h1>
+    <p>Expert en Web Analytics, Tracking & Dashboarding — je vous forme à mesurer, comprendre et optimiser vos performances digitales.</p>
+    <a href="catalogue.html"><button>Découvrir mes formations</button></a>
+  </section>
+
+  <section class="expertise">
+    <h2>Nos expertises clés</h2>
+    <div class="expertise-item">
+      <h3>Web Analytics</h3>
+      <p>Transformez vos données en décisions : apprenez à structurer vos indicateurs et à interpréter vos performances avec précision.</p>
+    </div>
+    <div class="expertise-item">
+      <h3>Tracking</h3>
+      <p>Maîtrisez Google Tag Manager pour suivre les comportements utilisateurs et piloter vos actions marketing en temps réel.</p>
+    </div>
+    <div class="expertise-item">
+      <h3>Dashboarding</h3>
+      <p>Créez des tableaux de bord clairs et dynamiques avec Power BI ou Data Studio pour piloter vos KPIs efficacement.</p>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2 style="text-align:center;">Contactez-moi</h2>
+    <form action="remerciement-contact.html" method="GET" onsubmit="envoyerFormulaire()">
+      <input type="text" name="prenom" placeholder="Prénom" required>
+      <input type="text" name="nom" placeholder="Nom" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <button type="submit">Être recontacté</button>
+    </form>
+  </section>
+
+  <footer>
+    © 2025 Louis Monteau — Expert Web Analytics
+  </footer>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    // Envoi de l'événement de vue page pour GA4
+    dataLayer.push({
+      event: 'page_view',
+      page_name: 'Accueil'
+    });
+
+    function envoyerFormulaire() {
+      dataLayer.push({
+        event: 'form_submit',
+        form_name: 'Contact Accueil'
+      });
+    }
+  </script>
+</body>
+</html>
