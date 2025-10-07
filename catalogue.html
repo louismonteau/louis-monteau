@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue — Louis Monteau</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {font-family:'Inter',sans-serif;margin:0;background-color:#FAFAFA;color:#1C1C1E;}
+    header, footer {padding:20px 60px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #B0B0B0;}
+    footer {border-top:1px solid #B0B0B0;border-bottom:none;justify-content:center;font-size:14px;}
+    nav a {margin:0 15px;text-decoration:none;color:#1C1C1E;transition:color 0.3s;}
+    nav a:hover {color:#007AFF;}
+    h2 {text-align:center;margin:60px 0 40px;font-size:2rem;}
+    
+    /* --- Grid produit --- */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 40px;
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 20px;
+    }
+
+    .product-card {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid #B0B0B0;
+      border-radius:20px;
+      padding:30px;
+      backdrop-filter: blur(6px);
+      box-shadow:0 4px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      text-align:center;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow:0 10px 25px rgba(0,0,0,0.1);
+      border-color:#007AFF;
+    }
+
+    .product-card h3 {color:#007AFF;margin-bottom:10px;}
+    .product-card p {margin-bottom:20px;color:#1C1C1E;}
+    .product-card .price {font-weight:600;font-size:1.2rem;margin-bottom:15px;}
+    .product-card button {
+      padding:12px 25px;
+      border:none;
+      border-radius:25px;
+      background-color:#007AFF;
+      color:#fff;
+      font-weight:600;
+      cursor:pointer;
+      transition:all 0.3s ease;
+    }
+    .product-card button:hover {
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(0,122,255,0.35);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>Louis Monteau</strong></div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Expertises</a>
+      <a href="contact.html">Contact</a>
+      <a href="panier.html">Panier</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Catalogue de Formations</h2>
+    <div class="products-grid" id="products-grid">
+      <!-- Les produits seront injectés par JS -->
+    </div>
+  </main>
+
+  <footer>© 2025 Louis Monteau</footer>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({event:'page_view',page_name:'Catalogue'});
+
+    const products = [
+      {id:1,name:'Formation GTM',desc:'Apprenez à maîtriser Google Tag Manager pour un tracking précis.',price:299},
+      {id:2,name:'Formation GA4',desc:'Maîtrisez Google Analytics 4 pour analyser vos performances.',price:199},
+      {id:3,name:'Formation Piano Analytics',desc:'Exploitez Piano Analytics pour vos dashboards et reporting.',price:399}
+    ];
+
+    const grid = document.getElementById('products-grid');
+
+    products.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="price">${p.price}€</div>
+        <button onclick="addToCart(${p.id})">Ajouter au panier</button>
+      `;
+      grid.appendChild(card);
+    });
+
+    function addToCart(id) {
+      let cart = JSON.parse(localStorage.getItem('cart')||'[]');
+      const product = products.find(p=>p.id===id);
+      cart.push(product);
+      localStorage.setItem('cart',JSON.stringify(cart));
+      alert(product.name+' ajouté au panier');
+      dataLayer.push({event:'add_to_cart',product_name:product.name,product_price:product.price});
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const count = JSON.parse(localStorage.getItem('cart')||'[]').length;
+      document.querySelectorAll('nav a[href="panier.html"]')[0].innerHTML = `Panier (${count})`;
+    }
+
+    updateCartCount();
+  </script>
+</body>
+</html>
