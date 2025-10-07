@@ -85,12 +85,25 @@
       transition: all 0.3s ease;
     }
 
-    .hero button:hover {
+    /* --- CTA dans la bannière --- */
+    .cta-link {
+      display: inline-block;
+      background-color: #fff;
+      color: #007AFF;
+      padding: 12px 28px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: none;
+    }
+    
+    .cta-link:hover {
       background-color: #007AFF;
       color: #fff;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,122,255,0.3);
+      transform: translateY(-2px);
     }
+
 
     /* --- Section expertises --- */
     .expertise {
@@ -185,7 +198,7 @@
   <section class="hero">
     <h1>Propulsez vos performances digitales</h1>
     <p>Je forme les entreprises à transformer la donnée en performance. Découvrez mes expertises en Web Analytics, Tracking et Dashboarding.</p>
-    <a href="catalogue.html"><button>Découvrir mes formations</button></a>
+    <a href="catalogue.html" class="cta-link">Découvrir mes formations</a>
   </section>
 
   <!-- Expertises dynamiques -->
@@ -284,10 +297,10 @@
 
   input:focus {
     outline: none;
-    border-color: #007AFF;
-    box-shadow: 0 0 8px rgba(0,122,255,0.3);
+    border: 1px solid #007AFF;
     background-color: #fff;
   }
+
 
   /* --- Labels flottants --- */
   label {
