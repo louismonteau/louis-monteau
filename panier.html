@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panier — Louis Monteau</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {font-family:'Inter',sans-serif;margin:0;background-color:#FAFAFA;color:#1C1C1E;}
+    header, footer {padding:20px 60px;display:flex;justify-content:space-between;align-items:center;}
+    header {border-bottom:1px solid #B0B0B0;}
+    footer {border-top:1px solid #B0B0B0; border-bottom:none; justify-content:center; font-size:14px; height:auto;}
+    nav a {margin:0 15px;text-decoration:none;color:#1C1C1E;transition:color 0.3s;}
+    nav a:hover {color:#007AFF;}
+    h2 {text-align:center;margin:60px 0 40px;font-size:2rem;}
+    
+    main {max-width:1100px;margin:0 auto;padding:0 20px;}
+    .cart-item {display:flex;justify-content:space-between;align-items:center;padding:15px 20px;border:1px solid #B0B0B0;border-radius:12px;margin-bottom:20px;background:#fff;}
+    .cart-item div {flex:1;}
+    .cart-item button {padding:8px 20px;border:none;border-radius:25px;background-color:#FF3B30;color:#fff;font-weight:600;cursor:pointer;transition:all 0.3s ease;}
+    .cart-item button:hover {background-color:#FF453A;}
+    .total {text-align:right;font-weight:600;font-size:1.3rem;margin-bottom:30px;}
+    .checkout {display:block;width:100%;text-align:center;padding:14px;border-radius:25px;background-color:#007AFF;color:#fff;font-weight:600;text-decoration:none;transition:all 0.3s ease;}
+    .checkout:hover {background-color:#0066CC;}
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>Louis Monteau</strong></div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Expertises</a>
+      <a href="contact.html">Contact</a>
+      <a href="panier.html">Panier (0)</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Votre Panier</h2>
+    <div id="cart-container"></div>
+    <div class="total" id="cart-total"></div>
+    <a href="paiement.html" class="checkout" id="checkout-btn">Procéder au paiement</a>
+  </main>
+
+  <footer>© 2025 Louis Monteau — Expert Web Analytics</footer>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({event:'page_view', page_name:'Panier'});
+
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const container = document.getElementById('cart-container');
+    const totalEl = document.getElementById('cart-total');
+
+    function renderCart() {
+      container.innerHTML = '';
+      let total = 0;
+      cart.forEach((p,index)=>{
+        total += p.price * (p.quantity || 1);
+        const item = document.createElement('div');
+        item.className = 'cart-item';
+        item.innerHTML = `
+          <div>${p.name}</div>
+          <div>${p.price}€</div>
+          <button onclick="removeFromCart(${index})">Supprimer</button>
+        `;
+        container.appendChild(item);
+      });
+      totalEl.innerHTML = 'Total : '+total+'€';
+      
+      // GA4 view_cart
+      dataLayer.push({
+        event:'view_cart',
+        ecommerce:{
+          currency:'EUR',
+          items: cart.map(p=>({
+            item_id:p.id,
+            item_name:p.name,
+            price:p.price,
+            quantity:p.quantity || 1
+          }))
+        }
+      });
+    }
+
+    function removeFromCart(index) {
+      const removed = cart.splice(index,1)[0];
+      localStorage.setItem('cart',JSON.stringify(cart));
+      renderCart();
+
+      // GA4 remove_from_cart
+      dataLayer.push({
+        event:'remove_from_cart',
+        ecommerce:{
+          currency:'EUR',
+          items:[{
+            item_id:removed.id,
+            item_name:removed.name,
+            price:removed.price,
+            quantity:removed.quantity || 1
+          }]
+        }
+      });
+
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const count = cart.length;
+      document.querySelectorAll('nav a[href="panier.html"]')[0].innerHTML = `Panier (${count})`;
+    }
+
+    document.getElementById('checkout-btn').addEventListener('click',()=>{
+      // GA4 begin_checkout
+      dataLayer.push({
+        event:'begin_checkout',
+        ecommerce:{
+          currency:'EUR',
+          items: cart.map(p=>({
+            item_id:p.id,
+            item_name:p.name,
+            price:p.price,
+            quantity:p.quantity || 1
+          })),
+          value: cart.reduce((a,b)=>a+b.price,0)
+        }
+      });
+    });
+
+    renderCart();
+    updateCartCount();
+  </script>
+</body>
+</html>
