@@ -67,4 +67,25 @@
       e.preventDefault();
       // GA4 purchase
       dataLayer.push({
-        event
+        event:'purchase',
+        ecommerce:{
+          currency:'EUR',
+          transaction_id:'T'+Date.now(),
+          value: cart.reduce((a,b)=>a+b.price,0),
+          items: cart.map(p=>({
+            item_id:p.id,
+            item_name:p.name,
+            price:p.price,
+            quantity:p.quantity || 1
+          }))
+        }
+      });
+      // Vider le panier
+      localStorage.removeItem('cart');
+      // Redirection page remerciement
+      window.location.href='merci-achat.html';
+    });
+  </script>
+</body>
+</html>
+
