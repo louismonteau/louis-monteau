@@ -35,10 +35,35 @@
       text-decoration: none;
       color: #1C1C1E;
       transition: color 0.3s;
+      position: relative;
     }
 
     nav a:hover {
       color: #007AFF;
+    }
+
+    /* --- Compteur panier --- */
+    .cart {
+      position: relative;
+      font-size: 1.3rem;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background-color: #007AFF;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 50%;
+      font-weight: bold;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.8; }
     }
 
     h1, h2 {
@@ -137,36 +162,86 @@
       color: #1C1C1E;
     }
 
-    /* --- Formulaire contact --- */
+    /* --- Formulaire contact moderne --- */
     .contact {
       text-align: center;
-      padding: 80px 20px;
-      background-color: #FAFAFA;
+      padding: 100px 20px;
+      background: linear-gradient(135deg, #FFFFFF, #F4F8FF);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(circle, rgba(0,122,255,0.08) 0%, transparent 70%);
+      animation: moveBg 12s infinite linear;
+    }
+
+    .contact h2 {
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .contact p {
+      font-size: 1rem;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      position: relative;
+      z-index: 2;
     }
 
     form {
-      display: flex;
-      flex-direction: column;
-      width: 300px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(176,176,176,0.3);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 500px;
       margin: 0 auto;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+      position: relative;
+      z-index: 2;
     }
 
-    input, button {
-      margin-bottom: 15px;
-      padding: 10px;
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 20px;
       border: 1px solid #B0B0B0;
-      border-radius: 8px;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.85);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #007AFF;
+      box-shadow: 0 0 10px rgba(0,122,255,0.3);
+      transform: scale(1.02);
     }
 
     button {
       background-color: #007AFF;
       color: #fff;
       border: none;
+      padding: 14px 30px;
+      border-radius: 25px;
+      font-weight: 600;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
 
     button:hover {
-      opacity: 0.9;
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,122,255,0.3);
     }
   </style>
 </head>
@@ -177,7 +252,7 @@
       <a href="index.html">Accueil</a>
       <a href="catalogue.html">Expertises</a>
       <a href="contact.html">Contact</a>
-      <a href="panier.html">Panier</a>
+      <a href="panier.html" class="cart">🛒<span class="cart-count" id="cartCount">2</span></a>
     </nav>
   </header>
 
@@ -204,20 +279,17 @@
         <h3>Dashboarding</h3>
         <p>Concevez des tableaux de bord impactants et clairs sous Power BI ou Looker Studio pour suivre vos KPIs en temps réel.</p>
       </div>
-      <div class="expertise-item">
-        <h3>Data Strategy</h3>
-        <p>Structurez une gouvernance de la donnée solide pour fiabiliser vos analyses et mieux piloter vos campagnes marketing.</p>
-      </div>
     </div>
   </section>
 
   <!-- Formulaire de contact -->
   <section class="contact">
     <h2>Contactez-moi</h2>
+    <p>Vous souhaitez en savoir plus sur mes formations ou discuter de vos besoins en data ? Remplissez ce formulaire et je vous recontacte rapidement.</p>
     <form action="remerciement-contact.html" method="GET" onsubmit="envoyerFormulaire()">
       <input type="text" name="prenom" placeholder="Prénom" required>
       <input type="text" name="nom" placeholder="Nom" required>
-      <input type="email" name="email" placeholder="Email" required>
+      <input type="email" name="email" placeholder="Adresse e-mail" required>
       <button type="submit">Être recontacté</button>
     </form>
   </section>
@@ -242,6 +314,16 @@
         form_name: 'Contact Accueil'
       });
     }
+
+    // Simule un compteur panier dynamique
+    let cartCount = 2;
+    const cartDisplay = document.getElementById('cartCount');
+
+    function updateCart(count) {
+      cartDisplay.textContent = count;
+    }
+
+    updateCart(cartCount);
   </script>
 </body>
 </html>
