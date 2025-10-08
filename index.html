@@ -309,8 +309,7 @@
     border: 1px solid #007AFF;
     background-color: #fff;
   }
-
-
+  
   }
 
   input:focus + label,
@@ -322,7 +321,18 @@
     background-color: #fff;
     padding: 0 4px;
   }
-
+  /* --- Labels flottants --- */
+  label {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    color: #999;
+    font-size: 0.95rem;
+    pointer-events: none;
+    transition: 0.2s ease;
+  }
+  
+  }
   /* --- Bouton CTA --- */
   button {
     width: 100%;
