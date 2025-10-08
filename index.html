@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Louis Monteau - Expert Web Analytics</title>
+  <title>Louis Monteau — Expert Web Analytics</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
   <style>
-    /* --- Style général --- */
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
       background-color: #FAFAFA;
       color: #1C1C1E;
+      overflow-x: hidden;
     }
 
     header, footer {
@@ -20,14 +19,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #B0B0B0;
     }
 
-    footer {
-      border-top: 1px solid #B0B0B0;
-      border-bottom: none;
-      justify-content: center;
-      font-size: 14px;
+    header {
+      border-bottom: 1px solid #B0B0B0;
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     nav a {
@@ -41,155 +40,190 @@
       color: #007AFF;
     }
 
-    h1, h2 {
-      color: #1C1C1E;
-    }
-
-    /* --- Bannière dynamique --- */
     .hero {
       position: relative;
-      overflow: hidden;
       text-align: center;
-      padding: 100px 20px;
-      color: #fff;
-      background: linear-gradient(270deg, #007AFF, #1C1C1E, #007AFF);
-      background-size: 600% 600%;
-      animation: gradientMove 10s ease infinite;
+      color: #1C1C1E;
+      padding: 160px 20px;
+      background: linear-gradient(135deg, #EAF3FF, #FFFFFF);
+      overflow: hidden;
     }
 
-    @keyframes gradientMove {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0,122,255,0.1) 0%, transparent 70%);
+      animation: moveBg 10s infinite linear;
+    }
+
+    @keyframes moveBg {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(50px, 50px); }
+      100% { transform: translate(0, 0); }
     }
 
     .hero h1 {
       font-size: 2.5rem;
-      margin-bottom: 15px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
     }
 
     .hero p {
       font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto 30px;
+      color: #333;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 2;
     }
 
-    .hero button {
-      background-color: #fff;
-      color: #007AFF;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    /* --- CTA dans la bannière --- */
-    .cta-link {
-      display: inline-block;
-      background-color: #fff;
-      color: #007AFF;
-      padding: 12px 28px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: none;
-    }
-    
-    .cta-link:hover {
+    .cta-btn {
       background-color: #007AFF;
-      color: #fff;
-      transform: translateY(-2px);
+      color: white;
+      padding: 14px 36px;
+      border-radius: 25px;
+      border: none;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 2;
     }
 
+    .cta-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,122,255,0.3);
+    }
 
-    /* --- Section expertises --- */
-    .expertise {
-      max-width: 1100px;
-      margin: 80px auto;
-      padding: 0 20px;
+    section {
+      padding: 100px 20px;
       text-align: center;
     }
 
-    .expertise h2 {
-      margin-bottom: 50px;
+    h2 {
       font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 60px;
     }
 
     .expertise-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 40px;
-    }
-
-    .expertise-item {
-      background: rgba(255,255,255,0.6);
-      border: 1px solid #B0B0B0;
-      border-radius: 20px;
-      padding: 30px;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
-    }
-
-    .expertise-item:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      border-color: #007AFF;
-    }
-
-    .expertise-item h3 {
-      color: #007AFF;
-      margin-bottom: 10px;
-    }
-
-    .expertise-item p {
-      font-size: 0.95rem;
-      color: #1C1C1E;
-    }
-
-    /* --- Formulaire contact --- */
-    .contact {
-      text-align: center;
-      padding: 80px 20px;
-      background-color: #FAFAFA;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      width: 300px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
-    input, button {
-      margin-bottom: 15px;
-      padding: 10px;
-      border: 1px solid #B0B0B0;
-      border-radius: 8px;
+    .expertise-card {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(176,176,176,0.3);
+      border-radius: 24px;
+      padding: 40px;
+      backdrop-filter: blur(6px);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
-      /* --- Labels flottants --- */
-    label {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      font-size: 0.95rem;
-      pointer-events: none;
-      transition: 0.2s ease;
+    .expertise-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     }
-    
+
+    .expertise-card h3 {
+      color: #007AFF;
+      margin-bottom: 15px;
+    }
+
+    .expertise-card p {
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Formulaire immersif */
+    .contact-section {
+      background: linear-gradient(135deg, #FFFFFF 0%, #F5F8FF 100%);
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-section::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0,122,255,0.08) 0%, transparent 70%);
+      top: -50%;
+      left: -50%;
+      animation: moveBg 12s infinite linear;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(176, 176, 176, 0.4);
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 500px;
+      margin: 0 auto;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+      position: relative;
+      z-index: 2;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      border: 1px solid #B0B0B0;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #007AFF;
+      box-shadow: 0 0 10px rgba(0,122,255,0.2);
+      background: white;
+      transform: scale(1.02);
+    }
+
     button {
       background-color: #007AFF;
-      color: #fff;
+      color: white;
       border: none;
+      padding: 14px 30px;
+      border-radius: 25px;
+      font-weight: 600;
       cursor: pointer;
+      transition: all 0.3s ease;
+      width: auto;
     }
 
     button:hover {
-      opacity: 0.9;
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,122,255,0.3);
+    }
+
+    footer {
+      border-top: 1px solid #B0B0B0;
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      color: #666;
     }
   </style>
 </head>
@@ -204,176 +238,50 @@
     </nav>
   </header>
 
-  <!-- Bannière dynamique -->
   <section class="hero">
-    <h1>Propulsez vos performances digitales</h1>
-    <p>Je forme les entreprises à transformer la donnée en performance. Découvrez mes expertises en Web Analytics, Tracking et Dashboarding.</p>
-    <a href="catalogue.html" class="cta-link">Découvrir mes formations</a>
+    <h1>Des solutions Data sur mesure pour booster vos performances</h1>
+    <p>Web Analytics • Tracking • Dashboarding — Maîtrisez vos données pour des décisions éclairées.</p>
+    <a href="catalogue.html" class="cta-btn">Découvrir nos formations</a>
   </section>
 
-  <!-- Expertises dynamiques -->
-  <section class="expertise">
+  <section>
     <h2>Nos expertises clés</h2>
     <div class="expertise-grid">
-      <div class="expertise-item">
+      <div class="expertise-card">
         <h3>Web Analytics</h3>
-        <p>Apprenez à identifier les leviers de croissance grâce à une analyse fine de vos indicateurs de performance (KPI, ROI, taux de conversion).</p>
+        <p>Exploitez la donnée utilisateur pour comprendre le comportement de vos visiteurs et maximiser vos conversions.</p>
       </div>
-      <div class="expertise-item">
-        <h3>Tracking & GTM</h3>
-        <p>Devenez autonome dans la collecte de vos données : mise en place de plans de marquage, balises et déclencheurs via Google Tag Manager.</p>
+      <div class="expertise-card">
+        <h3>Tracking & Tagging</h3>
+        <p>Implémentez des plans de taggage précis pour une mesure fiable et un suivi optimal des événements business.</p>
       </div>
-      <div class="expertise-item">
-        <h3>Dashboarding</h3>
-        <p>Concevez des tableaux de bord impactants et clairs sous Power BI ou Looker Studio pour suivre vos KPIs en temps réel.</p>
+      <div class="expertise-card">
+        <h3>Data Visualization</h3>
+        <p>Concevez des dashboards interactifs sous Power BI ou Looker Studio pour piloter vos KPIs en temps réel.</p>
       </div>
     </div>
   </section>
 
-<!-- Formulaire de contact modernisé -->
-<section class="contact">
-  <h2>Contactez-moi</h2>
-  <p style="max-width:600px;margin:0 auto 40px;color:#555;">
-    Discutons de vos besoins en Web Analytics, Tracking ou Dashboarding.  
-    Laissez vos coordonnées pour être recontacté sous 24h.
-  </p>
+  <section class="contact-section">
+    <h2>Contactez-moi</h2>
+    <form id="contactForm" onsubmit="submitForm(event)">
+      <input type="text" id="nom" name="nom" placeholder="Nom" required>
+      <input type="text" id="prenom" name="prenom" placeholder="Prénom" required>
+      <input type="email" id="email" name="email" placeholder="Email" required>
+      <button type="submit">Envoyer</button>
+    </form>
+  </section>
 
-  <form action="remerciement-contact.html" method="GET" onsubmit="envoyerFormulaire()">
-    <div class="form-group">
-      <input type="text" name="prenom" placeholder="Prénom" required>
-      <label>Prénom</label>
-    </div>
-
-    <div class="form-group">
-      <input type="text" name="nom" placeholder="Nom" required>
-      <label>Nom</label>
-    </div>
-
-    <div class="form-group">
-      <input type="email" name="email" placeholder="Email" required>
-      <label>Email</label>
-    </div>
-
-    <button type="submit">Être recontacté</button>
-  </form>
-</section>
-
-<style>
-  .contact {
-    text-align: center;
-    padding: 100px 20px;
-    background-color: #FFFFFF;
-  }
-
-  .contact h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    color: #1C1C1E;
-  }
-
-  .contact p {
-    color: #555;
-    font-size: 1rem;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  /* --- Champs du formulaire avec effet focus --- */
-  .form-group {
-    position: relative;
-    width: 100%;
-  }
-
-  input {
-    width: 100%;
-    padding: 14px 12px;
-    border: 1px solid #B0B0B0;
-    border-radius: 8px;
-    font-size: 1rem;
-    background: #F9F9F9;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-    box-shadow: none;
-  }
-
-  }
-
-  input:focus {
-    outline: none;
-    border: 1px solid #007AFF;
-    background-color: #fff;
-  }
-  
-  }
-
-  input:focus + label,
-  input:not(:placeholder-shown) + label {
-    top: -10px;
-    left: 10px;
-    font-size: 0.8rem;
-    color: #007AFF;
-    background-color: #fff;
-    padding: 0 4px;
-  }
-  /* --- Labels flottants --- */
-  label {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    color: #999;
-    font-size: 0.95rem;
-    pointer-events: none;
-    transition: 0.2s ease;
-  }
-  
-  }
-  /* --- Bouton CTA --- */
-  button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 25px;
-    background-color: #007AFF;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,122,255,0.25);
-  }
-
-  button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,122,255,0.35);
-  }
-</style>
-
-
-  <footer>
-    © 2025 Louis Monteau — Expert Web Analytics
-  </footer>
+  <footer>© 2025 Louis Monteau — Expert Web Analytics</footer>
 
   <script>
     window.dataLayer = window.dataLayer || [];
+    dataLayer.push({ event: 'page_view', page_name: 'Accueil' });
 
-    // Envoi de l'événement de vue page pour GA4
-    dataLayer.push({
-      event: 'page_view',
-      page_name: 'Accueil'
-    });
-
-    // Tracking de soumission du formulaire
-    function envoyerFormulaire() {
-      dataLayer.push({
-        event: 'form_submit',
-        form_name: 'Contact Accueil'
-      });
+    function submitForm(e) {
+      e.preventDefault();
+      dataLayer.push({ event: 'form_submit', form_name: 'contact_home' });
+      window.location.href = 'remerciement-contact.html';
     }
   </script>
 </body>
