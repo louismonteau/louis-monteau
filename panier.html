@@ -6,22 +6,128 @@
   <title>Panier — Louis Monteau</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {font-family:'Inter',sans-serif;margin:0;background-color:#FAFAFA;color:#1C1C1E;}
-    header, footer {padding:20px 60px;display:flex;justify-content:space-between;align-items:center;}
-    header {border-bottom:1px solid #B0B0B0;}
-    footer {border-top:1px solid #B0B0B0; border-bottom:none; justify-content:center; font-size:14px; height:auto;}
-    nav a {margin:0 15px;text-decoration:none;color:#1C1C1E;transition:color 0.3s;}
-    nav a:hover {color:#007AFF;}
-    h2 {text-align:center;margin:60px 0 40px;font-size:2rem;}
-    
-    main {max-width:1100px;margin:0 auto;padding:0 20px;}
-    .cart-item {display:flex;justify-content:space-between;align-items:center;padding:15px 20px;border:1px solid #B0B0B0;border-radius:12px;margin-bottom:20px;background:#fff;}
-    .cart-item div {flex:1;}
-    .cart-item button {padding:8px 20px;border:none;border-radius:25px;background-color:#FF3B30;color:#fff;font-weight:600;cursor:pointer;transition:all 0.3s ease;}
-    .cart-item button:hover {background-color:#FF453A;}
-    .total {text-align:right;font-weight:600;font-size:1.3rem;margin-bottom:30px;}
-    .checkout {display:block;width:100%;text-align:center;padding:14px;border-radius:25px;background-color:#007AFF;color:#fff;font-weight:600;text-decoration:none;transition:all 0.3s ease;}
-    .checkout:hover {background-color:#0066CC;}
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: #FAFAFA;
+      color: #1C1C1E;
+    }
+
+    header, footer {
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header {
+      border-bottom: 1px solid #B0B0B0;
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    footer {
+      border-top: 1px solid #B0B0B0;
+      justify-content: center;
+      font-size: 14px;
+      height: auto;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #1C1C1E;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #007AFF;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 60px 0 40px;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    .cart-container {
+      max-width: 800px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border: 1px solid rgba(176, 176, 176, 0.3);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+
+    .cart-item:hover {
+      transform: scale(1.02);
+    }
+
+    .cart-item h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #007AFF;
+    }
+
+    .cart-item p {
+      margin: 5px 0;
+      font-size: 0.9rem;
+    }
+
+    .remove-btn {
+      background: transparent;
+      border: none;
+      color: #FF3B30;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .remove-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .total {
+      text-align: right;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 30px;
+      color: #1C1C1E;
+    }
+
+    /* ✅ CTA proportionnel au texte */
+    .checkout-btn {
+      display: block;
+      margin: 40px auto 0;
+      padding: 14px 40px;
+      background-color: #007AFF;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: fit-content; /* largeur proportionnelle */
+    }
+
+    .checkout-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 122, 255, 0.35);
+    }
   </style>
 </head>
 <body>
@@ -31,104 +137,95 @@
       <a href="index.html">Accueil</a>
       <a href="catalogue.html">Expertises</a>
       <a href="contact.html">Contact</a>
-      <a href="panier.html">Panier (0)</a>
+      <a href="panier.html">Panier</a>
     </nav>
   </header>
 
   <main>
     <h2>Votre Panier</h2>
-    <div id="cart-container"></div>
-    <div class="total" id="cart-total"></div>
-    <a href="paiement.html" class="checkout" id="checkout-btn">Procéder au paiement</a>
+    <div class="cart-container" id="cart-container"></div>
+    <div class="total" id="total"></div>
+    <button class="checkout-btn" id="checkout-btn">Valider le panier</button>
   </main>
 
   <footer>© 2025 Louis Monteau — Expert Web Analytics</footer>
 
   <script>
     window.dataLayer = window.dataLayer || [];
-    dataLayer.push({event:'page_view', page_name:'Panier'});
+    dataLayer.push({ event: 'page_view', page_name: 'Panier' });
 
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
     const container = document.getElementById('cart-container');
-    const totalEl = document.getElementById('cart-total');
+    const totalEl = document.getElementById('total');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 
     function renderCart() {
       container.innerHTML = '';
       let total = 0;
-      cart.forEach((p,index)=>{
-        total += p.price * (p.quantity || 1);
-        const item = document.createElement('div');
-        item.className = 'cart-item';
-        item.innerHTML = `
-          <div>${p.name}</div>
-          <div>${p.price}€</div>
-          <button onclick="removeFromCart(${index})">Supprimer</button>
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#555;">Votre panier est vide.</p>';
+        totalEl.textContent = '';
+        checkoutBtn.style.display = 'none';
+        return;
+      }
+
+      cart.forEach((p, i) => {
+        total += p.price;
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+          <div>
+            <h3>${p.name}</h3>
+            <p>${p.price} €</p>
+          </div>
+          <button class="remove-btn" onclick="removeItem(${i})">Retirer</button>
         `;
-        container.appendChild(item);
+        container.appendChild(div);
       });
-      totalEl.innerHTML = 'Total : '+total+'€';
-      
-      // GA4 view_cart
-      dataLayer.push({
-        event:'view_cart',
-        ecommerce:{
-          currency:'EUR',
-          items: cart.map(p=>({
-            item_id:p.id,
-            item_name:p.name,
-            price:p.price,
-            quantity:p.quantity || 1
-          }))
-        }
-      });
+
+      totalEl.textContent = `Total : ${total} €`;
+      checkoutBtn.style.display = 'block';
     }
 
-    function removeFromCart(index) {
-      const removed = cart.splice(index,1)[0];
-      localStorage.setItem('cart',JSON.stringify(cart));
+    function removeItem(index) {
+      const removed = cart.splice(index, 1)[0];
+      localStorage.setItem('cart', JSON.stringify(cart));
       renderCart();
 
-      // GA4 remove_from_cart
+      // GA4 remove_from_cart event
       dataLayer.push({
-        event:'remove_from_cart',
-        ecommerce:{
-          currency:'EUR',
-          items:[{
-            item_id:removed.id,
-            item_name:removed.name,
-            price:removed.price,
-            quantity:removed.quantity || 1
+        event: 'remove_from_cart',
+        ecommerce: {
+          currency: 'EUR',
+          items: [{
+            item_id: removed.id,
+            item_name: removed.name,
+            price: removed.price,
+            quantity: 1
           }]
         }
       });
-
-      updateCartCount();
     }
 
-    function updateCartCount() {
-      const count = cart.length;
-      document.querySelectorAll('nav a[href="panier.html"]')[0].innerHTML = `Panier (${count})`;
-    }
-
-    document.getElementById('checkout-btn').addEventListener('click',()=>{
-      // GA4 begin_checkout
+    checkoutBtn.addEventListener('click', () => {
       dataLayer.push({
-        event:'begin_checkout',
-        ecommerce:{
-          currency:'EUR',
-          items: cart.map(p=>({
-            item_id:p.id,
-            item_name:p.name,
-            price:p.price,
-            quantity:p.quantity || 1
-          })),
-          value: cart.reduce((a,b)=>a+b.price,0)
+        event: 'begin_checkout',
+        ecommerce: {
+          currency: 'EUR',
+          value: cart.reduce((a, b) => a + b.price, 0),
+          items: cart.map(p => ({
+            item_id: p.id,
+            item_name: p.name,
+            price: p.price,
+            quantity: 1
+          }))
         }
       });
+      window.location.href = 'paiement.html';
     });
 
     renderCart();
-    updateCartCount();
   </script>
 </body>
 </html>
