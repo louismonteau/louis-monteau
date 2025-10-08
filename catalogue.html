@@ -6,68 +6,155 @@
   <title>Catalogue — Louis Monteau</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {font-family:'Inter',sans-serif;margin:0;background-color:#FAFAFA;color:#1C1C1E;}
-    header, footer {padding:20px 60px;display:flex;justify-content:space-between;align-items:center;}
-    header {border-bottom:1px solid #B0B0B0;}
-    footer {border-top:1px solid #B0B0B0; border-bottom:none; justify-content:center; font-size:14px; height:auto;}
-    nav a {margin:0 15px;text-decoration:none;color:#1C1C1E;transition:color 0.3s;}
-    nav a:hover {color:#007AFF;}
-    h2 {text-align:center;margin:60px 0 40px;font-size:2rem;}
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: #FAFAFA;
+      color: #1C1C1E;
+      overflow-x: hidden;
+    }
+
+    header, footer {
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header {
+      border-bottom: 1px solid #B0B0B0;
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    footer {
+      border-top: 1px solid #B0B0B0;
+      justify-content: center;
+      font-size: 14px;
+      height: auto;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #1C1C1E;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #007AFF;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 60px 0 40px;
+      font-size: 2rem;
+      font-weight: 600;
+    }
 
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-      gap: 40px;
-      max-width:1100px;
-      margin:0 auto;
-      padding:0 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 50px;
+      max-width: 1200px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
     }
 
     .product-card {
-      background: rgba(255,255,255,0.6);
-      border: 1px solid #B0B0B0;
-      border-radius:20px;
-      padding:30px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(176, 176, 176, 0.4);
+      border-radius: 24px;
+      padding: 30px;
       backdrop-filter: blur(6px);
-      box-shadow:0 4px 15px rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
-      text-align:center;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      min-height:350px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
     .product-card:hover {
       transform: translateY(-10px);
-      box-shadow:0 10px 25px rgba(0,0,0,0.1);
-      border-color:#007AFF;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      border-color: #007AFF;
     }
 
-    .product-card h3 {color:#007AFF;margin-bottom:10px;}
-    .product-card p {margin-bottom:10px;color:#1C1C1E;font-size:0.95rem;}
-    .product-card ul {
-      list-style-type: disc;
-      text-align:left;
-      margin: 10px 0 20px 20px;
-      padding: 0;
-      font-size:0.9rem;
-      color:#1C1C1E;
+    .product-card img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      object-fit: contain;
     }
-    .product-card .price {font-weight:600;font-size:1.2rem;margin-bottom:15px;}
+
+    .product-card h3 {
+      color: #007AFF;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .product-card p {
+      color: #1C1C1E;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .benefits {
+      text-align: left;
+      margin: 0 auto 25px;
+      max-width: 250px;
+    }
+
+    .benefits li {
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: #333;
+      list-style: disc;
+    }
+
+    .price {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
     .product-card button {
-      padding:12px 25px;
-      border:none;
-      border-radius:25px;
-      background-color:#007AFF;
-      color:#fff;
-      font-weight:600;
-      cursor:pointer;
-      transition:all 0.3s ease;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 25px;
+      background-color: #007AFF;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
+
     .product-card button:hover {
-      transform:translateY(-2px);
-      box-shadow:0 6px 20px rgba(0,122,255,0.35);
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 122, 255, 0.35);
+    }
+
+    /* Animation ajout panier */
+    .add-animation {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background: #007AFF;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 50px;
+      box-shadow: 0 6px 25px rgba(0, 122, 255, 0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+      z-index: 1000;
+    }
+
+    .add-animation.show {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -83,79 +170,83 @@
   </header>
 
   <main>
-    <h2>Catalogue de Formations</h2>
+    <h2>Découvrez nos Formations Premium</h2>
     <div class="products-grid" id="products-grid"></div>
   </main>
 
   <footer>© 2025 Louis Monteau — Expert Web Analytics</footer>
 
+  <div class="add-animation" id="added-notif">✅ Produit ajouté au panier</div>
+
   <script>
     window.dataLayer = window.dataLayer || [];
-
-    // page_view GA4
-    dataLayer.push({event:'page_view', page_name:'Catalogue'});
+    dataLayer.push({ event: 'page_view', page_name: 'Catalogue' });
 
     const products = [
       {
-        id:1,
-        name:'Formation GTM',
-        desc:'Maîtrisez Google Tag Manager pour un tracking précis.',
-        price:299,
-        benefits:[
-          'Installation et configuration des balises',
-          'Suivi des conversions et événements personnalisés',
-          'Optimisation des déclencheurs pour chaque page',
-          'Reporting fiable sur toutes vos actions marketing'
+        id: 1,
+        name: 'Formation Google Tag Manager',
+        desc: 'Devenez autonome dans la gestion de vos balises et du tracking avancé.',
+        price: 299,
+        logo: 'https://www.gstatic.com/analytics-suite/images/gtm/hero-icon.png',
+        benefits: [
+          'Suivi complet des conversions',
+          'Implémentation via GTM sans code',
+          'Configuration d’événements personnalisés',
+          'Optimisation des déclencheurs'
         ]
       },
       {
-        id:2,
-        name:'Formation GA4',
-        desc:'Exploitez Google Analytics 4 pour analyser vos performances.',
-        price:199,
-        benefits:[
-          'Création de rapports pertinents',
-          'Analyse avancée du parcours utilisateur',
-          'Segmentation et suivi des KPIs',
-          'Compréhension des audiences et sources de trafic'
+        id: 2,
+        name: 'Formation Google Analytics 4',
+        desc: 'Comprenez, analysez et activez la donnée avec GA4 pour booster vos performances.',
+        price: 199,
+        logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7f/Google_Analytics_4_logo.svg',
+        benefits: [
+          'Analyse du parcours utilisateur',
+          'Création de rapports d’audience et funnels',
+          'Segmentation avancée des événements',
+          'Vision complète des performances'
         ]
       },
       {
-        id:3,
-        name:'Formation Piano Analytics',
-        desc:'Apprenez à piloter vos dashboards et reportings avec Piano Analytics.',
-        price:399,
-        benefits:[
-          'Construction de tableaux de bord dynamiques',
-          'Suivi des indicateurs clés métiers',
-          'Analyse de données multi-sources',
-          'Mesure fine de la performance digitale'
+        id: 3,
+        name: 'Formation Piano Analytics',
+        desc: 'Maîtrisez Piano Analytics pour des insights puissants et un pilotage stratégique.',
+        price: 399,
+        logo: 'https://seeklogo.com/images/A/at-internet-logo-2FBA9E2B0E-seeklogo.com.png',
+        benefits: [
+          'Création de dashboards interactifs',
+          'Suivi des KPIs business clés',
+          'Analyse de données cross-canal',
+          'Personnalisation des rapports'
         ]
       }
     ];
 
     const grid = document.getElementById('products-grid');
 
-    // Générer les cartes produits
+    // Génération des cartes produits
     products.forEach(p => {
       const card = document.createElement('div');
       card.className = 'product-card';
       card.innerHTML = `
+        <img src="${p.logo}" alt="Logo ${p.name}">
         <h3>${p.name}</h3>
         <p>${p.desc}</p>
-        <ul>${p.benefits.map(b => `<li>${b}</li>`).join('')}</ul>
+        <ul class="benefits">${p.benefits.map(b => `<li>${b}</li>`).join('')}</ul>
         <div class="price">${p.price}€</div>
         <button onclick="addToCart(${p.id})">Ajouter au panier</button>
       `;
       grid.appendChild(card);
     });
 
-    // DataLayer view_item_list GA4 avec currency
+    // DataLayer GA4 view_item_list
     dataLayer.push({
-      event:'view_item_list',
-      ecommerce:{
+      event: 'view_item_list',
+      ecommerce: {
         currency: 'EUR',
-        items: products.map(p=>({
+        items: products.map(p => ({
           item_id: p.id,
           item_name: p.name,
           price: p.price
@@ -164,15 +255,20 @@
     });
 
     function addToCart(id) {
-      let cart = JSON.parse(localStorage.getItem('cart')||'[]');
-      const product = products.find(p=>p.id===id);
-      cart.push({...product, quantity:1});
-      localStorage.setItem('cart',JSON.stringify(cart));
+      let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const product = products.find(p => p.id === id);
+      cart.push({ ...product, quantity: 1 });
+      localStorage.setItem('cart', JSON.stringify(cart));
 
-      // dataLayer add_to_cart GA4 avec currency
+      // Animation d’ajout au panier
+      const notif = document.getElementById('added-notif');
+      notif.classList.add('show');
+      setTimeout(() => notif.classList.remove('show'), 1800);
+
+      // GA4 add_to_cart
       dataLayer.push({
-        event:'add_to_cart',
-        ecommerce:{
+        event: 'add_to_cart',
+        ecommerce: {
           currency: 'EUR',
           items: [{
             item_id: product.id,
@@ -183,13 +279,12 @@
         }
       });
 
-      alert(product.name+' ajouté au panier');
       updateCartCount();
     }
 
     function updateCartCount() {
-      const count = JSON.parse(localStorage.getItem('cart')||'[]').length;
-      document.querySelectorAll('nav a[href="panier.html"]')[0].innerHTML = `Panier (${count})`;
+      const count = JSON.parse(localStorage.getItem('cart') || '[]').length;
+      document.querySelector('nav a[href="panier.html"]').innerText = `Panier (${count})`;
     }
 
     updateCartCount();
