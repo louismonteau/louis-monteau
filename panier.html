@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panier — Louis Monteau</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -260,6 +262,21 @@ function renderCart() {
       const removed = cart.splice(index, 1)[0];
       localStorage.setItem('cart', JSON.stringify(cart));
       renderCart();
+
+
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
+
+  navToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
+
+  // Ferme le menu si l'on clique sur un lien
+  document.querySelectorAll('#navMenu a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('show');
+    });
+  });
 
       // GA4 remove_from_cart event
       dataLayer.push({
