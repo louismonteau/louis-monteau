@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paiement — Louis Monteau</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -174,15 +177,19 @@
   </style>
 </head>
 <body>
-  <header>
-    <div><strong>Louis Monteau</strong></div>
-    <nav>
-      <a href="index.html">Accueil</a>
-      <a href="catalogue.html">Expertises</a>
-      <a href="contact.html">Contact</a>
-      <a href="panier.html">Panier</a>
-    </nav>
-  </header>
+<header>
+  <div><strong>Louis Monteau</strong></div>
+  <nav>
+    <div class="nav-toggle" id="navToggle">☰</div>
+    <ul id="navMenu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="catalogue.html">Expertises</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="panier.html" class="cart">🛒<span class="cart-count" id="cartCount">0</span></a></li>
+    </ul>
+  </nav>
+</header>
+
 
   <main>
     <!-- Bloc gauche : Récapitulatif du panier -->
@@ -243,6 +250,20 @@
     });
 
     totalContainer.textContent = `Total : ${total.toFixed(2)}€`;
+
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
+
+  navToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
+
+  // Ferme le menu si l'on clique sur un lien
+  document.querySelectorAll('#navMenu a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('show');
+    });
+  });
 
     // Envoi d'un event GA4 "begin_checkout"
     if (cart.length > 0) {
