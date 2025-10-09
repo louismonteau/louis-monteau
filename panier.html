@@ -116,7 +116,7 @@
       background-color: #007AFF;
       color: #fff;
       border: none;
-      border-radius: 30px;
+      border-radius: 50px;
       font-weight: 600;
       font-size: 1rem;
       cursor: pointer;
@@ -127,6 +127,57 @@
     .checkout-btn:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 20px rgba(0, 122, 255, 0.35);
+    }
+
+
+        /* Bloc gauche : récapitulatif panier */
+    .cart-summary {
+      flex: 1;
+      min-width: 350px;
+      max-width: 500px;
+      background: white;
+      border: 1px solid rgba(176, 176, 176, 0.4);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #EAEAEA;
+      padding: 15px 0;
+    }
+
+    .cart-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      margin-right: 15px;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item h4 {
+      font-size: 1rem;
+      margin: 0 0 5px;
+      color: #007AFF;
+    }
+
+    .cart-item p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .cart-total {
+      text-align: right;
+      margin-top: 25px;
+      font-size: 1.2rem;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -146,6 +197,14 @@
     <div class="cart-container" id="cart-container"></div>
     <div class="total" id="total"></div>
     <button class="checkout-btn" id="checkout-btn">Valider le panier</button>
+  </main>
+
+  <main>
+    <div class="cart-summary" id="cart-summary">
+      <h3>Votre commande</h3>
+      <div id="cart-items"></div>
+      <div class="cart-total" id="cart-total">Total : 0€</div>
+    </div>
   </main>
 
   <footer>© 2025 Louis Monteau — Expert Web Analytics</footer>
