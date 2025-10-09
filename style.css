@@ -286,3 +286,49 @@ input:focus, textarea:focus, select:focus {
     box-sizing: border-box;
   }
 }
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 15px;
+}
+
+.nav-toggle {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* Menu mobile */
+@media screen and (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    display: none; /* masqué par défaut */
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 10px 0;
+  }
+
+  nav ul li {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+}
