@@ -164,7 +164,7 @@
   </header>
 
   <main>
-    <h2>🛒 Votre panier</h2>
+    <h2>Votre panier</h2>
 
     <div class="cart-summary" id="cart-container"></div>
     <div class="total" id="total"></div>
@@ -212,6 +212,48 @@
       totalEl.textContent = "Total : " + total.toFixed(2) + " €";
       checkoutBtn.style.display = 'block';
     }
+
+    // Fonction pour retourner le bon logo selon le nom du produit
+function getImageForProduct(name) {
+  if (name.includes("GA4")) return "assets/GA4_2.png";
+  if (name.includes("GTM")) return "assets/gtm_2.png";
+  if (name.includes("Piano")) return "assets/logo-piano-analytics.png";
+  return "assets/default.png"; // image par défaut si le produit ne correspond pas
+}
+
+// Fonction d'affichage du panier
+function renderCart() {
+  container.innerHTML = '';
+  let total = 0;
+
+  if (cart.length === 0) {
+    container.innerHTML = '<p style="text-align:center;color:#555;">Votre panier est vide.</p>';
+    totalEl.textContent = '';
+    checkoutBtn.style.display = 'none';
+    return;
+  }
+
+  cart.forEach((p, i) => {
+    total += p.price;
+    const item = document.createElement('div');
+    item.className = 'cart-item';
+    item.innerHTML = `
+      <div style="display:flex;align-items:center;gap:20px;">
+        <img src="${getImageForProduct(p.name)}" alt="${p.name}" style="width:60px;height:60px;object-fit:contain;border-radius:12px;">
+        <div class="cart-info">
+          <h3>${p.name}</h3>
+          <p>${p.price} €</p>
+        </div>
+      </div>
+      <button class="remove-btn" onclick="removeItem(${i})">Retirer</button>
+    `;
+    container.appendChild(item);
+  });
+
+  totalEl.textContent = "Total : " + total.toFixed(2) + " €";
+  checkoutBtn.style.display = 'block';
+}
+
 
     // Fonction suppression d’un produit
     function removeItem(index) {
